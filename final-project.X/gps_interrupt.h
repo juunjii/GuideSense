@@ -18,10 +18,8 @@
 #include <string.h>
 #include <math.h> // For fabs()
 
-// Constants
-//#define MAX_PACKET_SIZE 128  // Adjust based on GPS module's data packet size
-//#define SCALE_FACTOR 10000.0 // Scaling factor for fixed-point comparison
 
+// Constants
 #define GPS_ADDRESS 0x10 
 #define MAX_PACKET_SIZE 255
 #define SCALE_FACTOR 1000000
@@ -34,13 +32,6 @@
 #define RTC_CMP 32766  // Default RTC compare value
 #endif
 
-// Global Variables
-//extern volatile bool gps_data_ready;
-//extern volatile uint8_t gpsData[MAX_PACKET_SIZE];
-//extern volatile uint8_t _head, _tail;
-//extern char gps_sentence[MAX_PACKET_SIZE];
-//extern uint16_t buffer_index;
-
 
 // Global buffer and indices for GPS data handling
 extern volatile bool gps_data_ready;
@@ -50,7 +41,6 @@ extern volatile uint8_t _tail;                      // Tail pointer for reading 
 extern char gps_buffer[MAX_PACKET_SIZE];            // Buffer to store the GPS sentence
 extern uint16_t buffer_index;                       // Current position in the buffer
 
-// Function Prototypes
 
 /**
  * @brief Initializes the RTC for periodic interrupts.
