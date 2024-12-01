@@ -7,8 +7,6 @@
       <itemPath>printf.h</itemPath>
       <itemPath>gps.h</itemPath>
       <itemPath>i2c.h</itemPath>
-      <itemPath>TWI_host.h</itemPath>
-      <itemPath>mini-gmp.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -20,7 +18,7 @@
       <itemPath>printf.c</itemPath>
       <itemPath>gps.c</itemPath>
       <itemPath>i2c.c</itemPath>
-      <itemPath>mini-gmp.c</itemPath>
+      <itemPath>gps_interrupt.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
