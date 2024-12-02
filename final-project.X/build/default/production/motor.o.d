@@ -1,5 +1,5 @@
-build/default/debug/gps_interrupt.o.d build/default/debug/gps_interrupt.o: \
- gps_interrupt.c gps_interrupt.h \
+build/default/production/motor.o.d build/default/production/motor.o: \
+ motor.c motor.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\io.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\sfr_defs.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\inttypes.h \
@@ -13,17 +13,9 @@ build/default/debug/gps_interrupt.o.d build/default/debug/gps_interrupt.o: \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\common.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\xmega.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\fuse.h \
- c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\lock.h \
- c:\program\ files\microchip\xc8\v2.45\avr\lib\gcc\avr\5.4.0\include\stdbool.h \
- c:\program\ files\microchip\xc8\v2.45\avr\avr\include\stdio.h \
- c:\program\ files\microchip\xc8\v2.45\avr\avr\include\string.h i2c.h \
- c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\interrupt.h \
- c:\program\ files\microchip\xc8\v2.45\avr\avr\include\util\delay.h \
- c:\program\ files\microchip\xc8\v2.45\avr\avr\include\util\delay_basic.h \
- c:\program\ files\microchip\xc8\v2.45\avr\avr\include\math.h \
- c:\program\ files\microchip\xc8\v2.45\avr\avr\include\stdlib.h printf.h
+ c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\lock.h
 
-gps_interrupt.h:
+motor.h:
 
 c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\io.h:
 
@@ -52,23 +44,3 @@ c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\xmega.h:
 c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\fuse.h:
 
 c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\lock.h:
-
-c:\program\ files\microchip\xc8\v2.45\avr\lib\gcc\avr\5.4.0\include\stdbool.h:
-
-c:\program\ files\microchip\xc8\v2.45\avr\avr\include\stdio.h:
-
-c:\program\ files\microchip\xc8\v2.45\avr\avr\include\string.h:
-
-i2c.h:
-
-c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\interrupt.h:
-
-c:\program\ files\microchip\xc8\v2.45\avr\avr\include\util\delay.h:
-
-c:\program\ files\microchip\xc8\v2.45\avr\avr\include\util\delay_basic.h:
-
-c:\program\ files\microchip\xc8\v2.45\avr\avr\include\math.h:
-
-c:\program\ files\microchip\xc8\v2.45\avr\avr\include\stdlib.h:
-
-printf.h:

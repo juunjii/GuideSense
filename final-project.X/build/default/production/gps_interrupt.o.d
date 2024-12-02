@@ -1,5 +1,6 @@
 build/default/production/gps_interrupt.o.d \
- build/default/production/gps_interrupt.o: gps_interrupt.c gps.h \
+ build/default/production/gps_interrupt.o: gps_interrupt.c \
+ gps_interrupt.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\io.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\sfr_defs.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\inttypes.h \
@@ -23,7 +24,7 @@ build/default/production/gps_interrupt.o.d \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\math.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\stdlib.h printf.h
 
-gps.h:
+gps_interrupt.h:
 
 c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\io.h:
 

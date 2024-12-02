@@ -1,15 +1,10 @@
-#include "gps.h"
+#include "gps_interrupt.h"
 #include "i2c.h"
 #include "printf.h"
-#include <avr/interrupt.h>
-#include <avr/io.h>
-#include <stdbool.h>
 
-// Constants
-#define RTC_PRESCALER 1024 // Adjust as needed for desired interrupt rate
 
 // Global Variables
-volatile bool gps_data_ready = false; // Flag to indicate new GPS data is available
+//volatile bool gps_data_ready = false; // Flag to indicate new GPS data is available
 
 // GPS Buffers
 volatile uint8_t gpsData[MAX_PACKET_SIZE]; // Buffer for raw GPS data
@@ -18,59 +13,6 @@ char gps_sentence[MAX_PACKET_SIZE];        // Buffer for a complete GPS sentence
 uint16_t buffer_index = 0;  
 
 
-#ifndef RTC_PERIOD
-#define RTC_PERIOD 16383
-#endif
-
-#ifndef RTC_CMP
-#define RTC_CMP 32766
-#endif
-
-
-// RTC Initialization
-void RTC_init(void) {
-   /* Initialize RTC: */
-    while (RTC.STATUS > 0)
-    {
-        ; /* Wait for all registers to synchronize */
-    }
-    
-    /* Set period for PIT */
-    RTC.PER = RTC_PERIOD;
-    RTC.CMP = RTC_CMP;
-    
-    RTC.CTRLA = RTC_PRESCALER_DIV1_gc 
-        | RTC_RTCEN_bm /* Enable: enabled */
-        | RTC_RUNSTDBY_bm; /* Run In Standby: enabled */
-    
-    /* Select the 32.768 kHz clock source */
-    RTC.CLKSEL = RTC_CLKSEL_INT32K_gc;
-    
-    /* Run in debug mode */
-    RTC.DBGCTRL = RTC_DBGRUN_bm;
-    
-    /* Enable Overflow Interrupt */
-     RTC.INTCTRL |= RTC_OVF_bm;
-    
-}
-
-
-// ISR for RTC Overflow
-ISR(RTC_CNT_vect) {
-    for (uint8_t x = 0; x < MAX_PACKET_SIZE; x++) {
-        if (x % 32 == 0) {
-            requestByte(32); // Request 32 bytes from the GPS module
-        }
-        uint8_t incoming = read(); // Read incoming byte from GPS
-
-        if (incoming != 0x0A) {  // Ignore line breaks
-            gpsData[_head++] = incoming; // Store the incoming byte in the gpsData buffer
-            _head %= MAX_PACKET_SIZE;  // Wrap head pointer if it exceeds MAX_PACKET_SIZE
-        }
-    }
-    gps_data_ready = true; // Set flag to indicate new data is available
-    RTC.INTFLAGS = RTC_OVF_bm; // Clear interrupt flag
-}
 
 // Initialize GPS and peripherals
 void GPS_init(void) {
@@ -78,8 +20,6 @@ void GPS_init(void) {
     _tail = 0;
     TWI_init();    // Initialize I2C
     USART2_INIT(); // Initialize UART for debugging
-    RTC_init();    // Initialize RTC for periodic interrupts
-    sei();         // Enable global interrupts
 }
 
 
@@ -155,8 +95,8 @@ void check_arrival(double curr_lat, double curr_lon) {
     USART2_PRINTF_MOD("Scaled destination lat: %.8f, destination lon: %.8f\r\n", scaled_dest_lat, scaled_dest_lon);
 
     // Define thresholds for arrival (scaled format)
-    double lat_threshold = 1400.0;
-    double lon_threshold = 10.0;
+    double lat_threshold = 1400.0; // 155.7 meters
+    double lon_threshold = 10.0; //  1.111 meters 
 
     // Debugging: Print threshold values
     USART2_PRINTF_MOD("Latitude threshold: %.8f\r\n", lat_threshold);
@@ -259,12 +199,4 @@ void parse_gps_data(void) {
     gps_data_ready = false; // Reset data-ready flag
 }
 
-// Main Function
-int main(void) {
-    GPS_init(); // Initialize GPS and peripherals
 
-    while (1) {
-        parse_gps_data(); // Parse GPS sentences in the main loop
-        // Other tasks can be performed here
-    }
-}

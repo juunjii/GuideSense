@@ -7,6 +7,11 @@
       <itemPath>printf.h</itemPath>
       <itemPath>gps.h</itemPath>
       <itemPath>i2c.h</itemPath>
+      <itemPath>gps_interrupt.h</itemPath>
+      <itemPath>RTC_operations.h</itemPath>
+      <itemPath>usart.h</itemPath>
+      <itemPath>lidar.h</itemPath>
+      <itemPath>motor.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -19,6 +24,11 @@
       <itemPath>gps.c</itemPath>
       <itemPath>i2c.c</itemPath>
       <itemPath>gps_interrupt.c</itemPath>
+      <itemPath>RTC_operations.c</itemPath>
+      <itemPath>main.c</itemPath>
+      <itemPath>usart.c</itemPath>
+      <itemPath>lidar.c</itemPath>
+      <itemPath>motor.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
