@@ -12,6 +12,7 @@
 #define DISTANCE_THRESHOLD 5
 
 
+
 volatile int secondCounter = 0;
 
 
@@ -87,30 +88,30 @@ int main() {
  
     sei();
     while (1) {
-        
-        // Try to read valid LIDAR data
-        if (readLidarData(&distance)) {
-            // Update LED based on distance threshold
-            if (distance > DISTANCE_THRESHOLD) {
-                if (distance > prev_distance){
-                    statesActive |= PULSE_FURTHER;
-                    statesActive &= ~PULSE_CLOSER;
-                } else if (distance < prev_distance) {
-                    statesActive |= PULSE_CLOSER;
-                    statesActive &= ~PULSE_FURTHER;
-                }
-
-                 
-            } else {
-                statesActive &= ~PULSE_CLOSER;
-                statesActive &= ~PULSE_FURTHER;
-                clearMotors();
-                pulseCounter = 0;
-
-            }
-            
-            prev_distance = distance;
-        }
+//        
+//        // Try to read valid LIDAR data
+//        if (readLidarData(&distance)) {
+//            // Update LED based on distance threshold
+//            if (distance > DISTANCE_THRESHOLD) {
+//                if (distance > prev_distance){
+//                    statesActive |= PULSE_FURTHER;
+//                    statesActive &= ~PULSE_CLOSER;
+//                } else if (distance < prev_distance) {
+//                    statesActive |= PULSE_CLOSER;
+//                    statesActive &= ~PULSE_FURTHER;
+//                }
+//
+//                 
+//            } else {
+//                statesActive &= ~PULSE_CLOSER;
+//                statesActive &= ~PULSE_FURTHER;
+//                clearMotors();
+//                pulseCounter = 0;
+//
+//            }
+//            
+//            prev_distance = distance;
+//        }
         
         parse_gps_data(); // Parse GPS sentences in the main loop
         

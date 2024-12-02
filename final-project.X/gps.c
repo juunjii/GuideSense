@@ -1,10 +1,11 @@
 #include "gps.h"
 #include "i2c.h"
 #include "printf.h"
+#include <avr/interrupt.h>
+#include <avr/io.h>
+#include <stdbool.h>
 
 
-// Global Variables
-//volatile bool gps_data_ready = false; // Flag to indicate new GPS data is available
 
 // GPS Buffers
 volatile uint8_t gpsData[MAX_PACKET_SIZE]; // Buffer for raw GPS data
@@ -20,6 +21,7 @@ void GPS_init(void) {
     _tail = 0;
     TWI_init();    // Initialize I2C
     USART2_INIT(); // Initialize UART for debugging
+    sei();         // Enable global interrupts
 }
 
 
@@ -79,10 +81,10 @@ void check_arrival(double curr_lat, double curr_lon) {
      // Define destination coordinates (for comparison with current position)
     double dest_lat = 44.973575;
     double dest_lon = -93.218765;
-    
-    // Debugging: Print current and destination coordinates
-    USART2_PRINTF_MOD("Current lat: %.8f, current lon: %.8f\r\n", curr_lat, curr_lon);
-    USART2_PRINTF_MOD("Destination lat: %.8f, destination lon: %.8f\r\n", dest_lat, dest_lon);
+//    
+//    // Debugging: Print current and destination coordinates
+//    USART2_PRINTF_MOD("Current lat: %.8f, current lon: %.8f\r\n", curr_lat, curr_lon);
+//    USART2_PRINTF_MOD("Destination lat: %.8f, destination lon: %.8f\r\n", dest_lat, dest_lon);
 
     // Scale coordinates for fixed-point comparison
     double scaled_curr_lat = curr_lat * SCALE_FACTOR;
@@ -90,17 +92,17 @@ void check_arrival(double curr_lat, double curr_lon) {
     double scaled_dest_lat = dest_lat * SCALE_FACTOR;
     double scaled_dest_lon = dest_lon * SCALE_FACTOR;
 
-    // Debugging: Print scaled coordinates
-    USART2_PRINTF_MOD("Scaled current lat: %.8f, current lon: %.8f\r\n", scaled_curr_lat, scaled_curr_lon);
-    USART2_PRINTF_MOD("Scaled destination lat: %.8f, destination lon: %.8f\r\n", scaled_dest_lat, scaled_dest_lon);
+//    // Debugging: Print scaled coordinates
+//    USART2_PRINTF_MOD("Scaled current lat: %.8f, current lon: %.8f\r\n", scaled_curr_lat, scaled_curr_lon);
+//    USART2_PRINTF_MOD("Scaled destination lat: %.8f, destination lon: %.8f\r\n", scaled_dest_lat, scaled_dest_lon);
 
     // Define thresholds for arrival (scaled format)
-    double lat_threshold = 1400.0; // 155.7 meters
-    double lon_threshold = 10.0; //  1.111 meters 
+    double lat_threshold = 1400.0;
+    double lon_threshold = 10.0;
 
-    // Debugging: Print threshold values
-    USART2_PRINTF_MOD("Latitude threshold: %.8f\r\n", lat_threshold);
-    USART2_PRINTF_MOD("Longitude threshold: %.8f\r\n", lon_threshold);
+//    // Debugging: Print threshold values
+//    USART2_PRINTF_MOD("Latitude threshold: %.8f\r\n", lat_threshold);
+//    USART2_PRINTF_MOD("Longitude threshold: %.8f\r\n", lon_threshold);
 
     // Calculate differences in scaled coordinates
     double lat_diff = fabs(scaled_curr_lat - scaled_dest_lat);
@@ -198,5 +200,4 @@ void parse_gps_data(void) {
 
     gps_data_ready = false; // Reset data-ready flag
 }
-
 

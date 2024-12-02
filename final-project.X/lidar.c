@@ -11,7 +11,8 @@
 // Read data from LIDAR sensor following its protocol
 // Returns 1 if valid data received, 0 otherwise
 uint8_t readLidarData(uint16_t *distance) {
-    char data[BUF_SIZE];
+    
+    char data[9];
     uint8_t check;
     
     // Wait for first header byte (0x59)
@@ -27,7 +28,7 @@ uint8_t readLidarData(uint16_t *distance) {
     }
     
     // Read remaining 7 bytes
-    for (int i = 2; i < BUF_SIZE; i++) {
+    for (int i = 2; i < 9; i++) {
         data[i] = usartReadChar();
     }
     

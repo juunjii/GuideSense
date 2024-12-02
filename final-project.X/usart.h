@@ -16,8 +16,9 @@
 
 
 // Macros
-#define USART_BAUD_VALUE(baud_rate) ((F_CPU / (16UL * baud_rate)) - 1)
 
+#define SAMPLES_PER_BIT 16
+#define USART_BAUD_VALUE(BAUD_RATE) (uint16_t) ((F_CPU << 6) / (((float) SAMPLES_PER_BIT) * (BAUD_RATE)) + 0.5)
 // Function Prototypes
 /**
  * @brief Initializes the USART module with predefined settings.
