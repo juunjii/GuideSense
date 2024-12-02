@@ -17,7 +17,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h> // For fabs()
-#include "mini-gmp.h"  // Include the GMP library
 
 
 
