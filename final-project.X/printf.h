@@ -4,7 +4,6 @@
 #include <avr/io.h>
 #include <string.h>
 
-#define F_CPU 3333333
 #define SAMPLES_PER_BIT 16
 #define USART2_BAUD_VALUE(BAUD_RATE) (uint16_t)((F_CPU << 6) / (((float)SAMPLES_PER_BIT) * (BAUD_RATE)) + 0.5)
 
