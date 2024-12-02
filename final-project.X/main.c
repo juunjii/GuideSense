@@ -1,6 +1,5 @@
 
 #include <avr/io.h>
-#include <util/delay.h>
 #include <stdlib.h>
 #include <string.h>
 #include <avr/cpufunc.h>
@@ -8,9 +7,7 @@
 #include "RTC_Operations.h"
 #include "motor.h"
 #include "lidar.h"
-#include "gps_interrupt.h"
-
-
+#include "gps.h"
 
 #define DISTANCE_THRESHOLD 5
 
@@ -91,7 +88,6 @@ int main() {
     sei();
     while (1) {
         
-//        PORTA.OUT |= LEFT_MOTOR;
         // Try to read valid LIDAR data
         if (readLidarData(&distance)) {
             // Update LED based on distance threshold

@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=printf.c gps.c i2c.c gps_interrupt.c RTC_operations.c main.c usart.c lidar.c motor.c
+SOURCEFILES_QUOTED_IF_SPACED=printf.c gps.c i2c.c RTC_operations.c main.c usart.c lidar.c motor.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/printf.o ${OBJECTDIR}/gps.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/gps_interrupt.o ${OBJECTDIR}/RTC_operations.o ${OBJECTDIR}/main.o ${OBJECTDIR}/usart.o ${OBJECTDIR}/lidar.o ${OBJECTDIR}/motor.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/printf.o.d ${OBJECTDIR}/gps.o.d ${OBJECTDIR}/i2c.o.d ${OBJECTDIR}/gps_interrupt.o.d ${OBJECTDIR}/RTC_operations.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/usart.o.d ${OBJECTDIR}/lidar.o.d ${OBJECTDIR}/motor.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/printf.o ${OBJECTDIR}/gps.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/RTC_operations.o ${OBJECTDIR}/main.o ${OBJECTDIR}/usart.o ${OBJECTDIR}/lidar.o ${OBJECTDIR}/motor.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/printf.o.d ${OBJECTDIR}/gps.o.d ${OBJECTDIR}/i2c.o.d ${OBJECTDIR}/RTC_operations.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/usart.o.d ${OBJECTDIR}/lidar.o.d ${OBJECTDIR}/motor.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/printf.o ${OBJECTDIR}/gps.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/gps_interrupt.o ${OBJECTDIR}/RTC_operations.o ${OBJECTDIR}/main.o ${OBJECTDIR}/usart.o ${OBJECTDIR}/lidar.o ${OBJECTDIR}/motor.o
+OBJECTFILES=${OBJECTDIR}/printf.o ${OBJECTDIR}/gps.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/RTC_operations.o ${OBJECTDIR}/main.o ${OBJECTDIR}/usart.o ${OBJECTDIR}/lidar.o ${OBJECTDIR}/motor.o
 
 # Source Files
-SOURCEFILES=printf.c gps.c i2c.c gps_interrupt.c RTC_operations.c main.c usart.c lidar.c motor.c
+SOURCEFILES=printf.c gps.c i2c.c RTC_operations.c main.c usart.c lidar.c motor.c
 
 
 
@@ -105,12 +105,6 @@ ${OBJECTDIR}/i2c.o: i2c.c  .generated_files/flags/default/a3ecbb72b7cd6e37b79718
 	@${RM} ${OBJECTDIR}/i2c.o.d 
 	@${RM} ${OBJECTDIR}/i2c.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1 -g -DDEBUG  -gdwarf-2  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mno-const-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/i2c.o.d" -MT "${OBJECTDIR}/i2c.o.d" -MT ${OBJECTDIR}/i2c.o -o ${OBJECTDIR}/i2c.o i2c.c 
-	
-${OBJECTDIR}/gps_interrupt.o: gps_interrupt.c  .generated_files/flags/default/ec46d8d6c86eb7db5d46c348dd38d590d1a65efb .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/gps_interrupt.o.d 
-	@${RM} ${OBJECTDIR}/gps_interrupt.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1 -g -DDEBUG  -gdwarf-2  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mno-const-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/gps_interrupt.o.d" -MT "${OBJECTDIR}/gps_interrupt.o.d" -MT ${OBJECTDIR}/gps_interrupt.o -o ${OBJECTDIR}/gps_interrupt.o gps_interrupt.c 
 	
 ${OBJECTDIR}/RTC_operations.o: RTC_operations.c  .generated_files/flags/default/1e53dfc419324229cfb5f8b93ca8c78b4879faa6 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}" 
@@ -160,12 +154,6 @@ ${OBJECTDIR}/i2c.o: i2c.c  .generated_files/flags/default/17c9c7a509d0b32f7d145e
 	@${RM} ${OBJECTDIR}/i2c.o.d 
 	@${RM} ${OBJECTDIR}/i2c.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mno-const-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/i2c.o.d" -MT "${OBJECTDIR}/i2c.o.d" -MT ${OBJECTDIR}/i2c.o -o ${OBJECTDIR}/i2c.o i2c.c 
-	
-${OBJECTDIR}/gps_interrupt.o: gps_interrupt.c  .generated_files/flags/default/96b0e560d8db91e5e59ae9891facf724c233787c .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/gps_interrupt.o.d 
-	@${RM} ${OBJECTDIR}/gps_interrupt.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mno-const-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/gps_interrupt.o.d" -MT "${OBJECTDIR}/gps_interrupt.o.d" -MT ${OBJECTDIR}/gps_interrupt.o -o ${OBJECTDIR}/gps_interrupt.o gps_interrupt.c 
 	
 ${OBJECTDIR}/RTC_operations.o: RTC_operations.c  .generated_files/flags/default/516d74b416aca1b34345835a5541eaf7394ebfe3 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}" 
