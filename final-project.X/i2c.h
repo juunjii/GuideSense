@@ -8,7 +8,6 @@
 #ifndef I2C_H
 #define	I2C_H
 
-#define F_CPU 3333333
 #define MAX_PACKET_SIZE 255
 #define GPS_ADDRESS 0x10 
 
@@ -24,6 +23,7 @@
 #include <util/delay.h>
 #include <stdbool.h>
 #include <stdio.h> 
+
 
 
 
