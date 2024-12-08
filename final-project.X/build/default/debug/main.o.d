@@ -1,5 +1,5 @@
-build/default/production/gps.o.d build/default/production/gps.o: gps.c \
- gps.h c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\io.h \
+build/default/debug/main.o.d build/default/debug/main.o: main.c \
+ c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\io.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\sfr_defs.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\inttypes.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\features.h \
@@ -13,17 +13,17 @@ build/default/production/gps.o.d build/default/production/gps.o: gps.c \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\xmega.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\fuse.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\lock.h \
+ c:\program\ files\microchip\xc8\v2.45\avr\avr\include\stdlib.h \
+ c:\program\ files\microchip\xc8\v2.45\avr\avr\include\string.h \
+ c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\cpufunc.h \
+ c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\interrupt.h \
+ RTC_Operations.h motor.h lidar.h usart.h gps.h \
  c:\program\ files\microchip\xc8\v2.45\avr\lib\gcc\avr\5.4.0\include\stdbool.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\stdio.h \
- c:\program\ files\microchip\xc8\v2.45\avr\avr\include\string.h \
- c:\program\ files\microchip\xc8\v2.45\avr\avr\include\stdlib.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\math.h i2c.h \
- c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\interrupt.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\util\delay.h \
  c:\program\ files\microchip\xc8\v2.45\avr\avr\include\util\delay_basic.h \
  printf.h
-
-gps.h:
 
 c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\io.h:
 
@@ -53,19 +53,31 @@ c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\fuse.h:
 
 c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\lock.h:
 
+c:\program\ files\microchip\xc8\v2.45\avr\avr\include\stdlib.h:
+
+c:\program\ files\microchip\xc8\v2.45\avr\avr\include\string.h:
+
+c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\cpufunc.h:
+
+c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\interrupt.h:
+
+RTC_Operations.h:
+
+motor.h:
+
+lidar.h:
+
+usart.h:
+
+gps.h:
+
 c:\program\ files\microchip\xc8\v2.45\avr\lib\gcc\avr\5.4.0\include\stdbool.h:
 
 c:\program\ files\microchip\xc8\v2.45\avr\avr\include\stdio.h:
 
-c:\program\ files\microchip\xc8\v2.45\avr\avr\include\string.h:
-
-c:\program\ files\microchip\xc8\v2.45\avr\avr\include\stdlib.h:
-
 c:\program\ files\microchip\xc8\v2.45\avr\avr\include\math.h:
 
 i2c.h:
-
-c:\program\ files\microchip\xc8\v2.45\avr\avr\include\avr\interrupt.h:
 
 c:\program\ files\microchip\xc8\v2.45\avr\avr\include\util\delay.h:
 
