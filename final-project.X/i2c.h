@@ -8,7 +8,6 @@
 #ifndef I2C_H
 #define	I2C_H
 
-#define F_CPU 3333333
 #define MAX_PACKET_SIZE 255
 #define GPS_ADDRESS 0x10 
 
@@ -17,13 +16,14 @@
 #define _DEBUG_GREEN() (PORTC.OUT |= PIN1_bm)
 #define _PRINT_MSTATUS() (USART2_PRINTF_MOD("MSTATUS: 0x%02X\n", TWI0.MSTATUS))
 #define _PRINT_RECEIVED_BYTES() (USART2_PRINTF_MOD("Data[%d]: 0x%02X (decimal: %d)\r\n", bCount, data[bCount], data[bCount]))
-
+#define F_CPU 3333333
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <stdbool.h>
 #include <stdio.h> 
+
 
 
 

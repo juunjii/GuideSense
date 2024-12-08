@@ -1,8 +1,8 @@
 /* 
- * File:   gps.h
+ * File:   gps_interrupt.h
  * Author: chehj
  *
- * Created on November 26, 2024, 7:31 PM
+ * Created on December 1, 2024, 11:35 AM
  */
 
 #ifndef GPS_H
@@ -13,120 +13,113 @@
 #include <stdio.h>
 
 #include <string.h>
-#include "i2c.h"
+
 #include <stdlib.h>
 #include <string.h>
 #include <math.h> // For fabs()
 
+#include "i2c.h"
 
 
+// Constants
 #define GPS_ADDRESS 0x10 
+#define GPS_THRESHOLD 25
 #define MAX_PACKET_SIZE 255
 #define SCALE_FACTOR 1000000
+#define PULSE_LEFT    0x01
+#define PULSE_MIDDLE  0x02
+#define PULSE_RIGHT   0x04
+#define PULSE_CLOSER  0x08
+#define PULSE_FURTHER 0x10
+#define PULSE_ARRIVED 0x20
+#define PULSE_DEST_FARTHER 0x40
+#define PULSE_DEST_CLOSER 0x80
+#define EARTH_RADIUS 6371000 // Earth's radius in meters
 
-#ifndef DEBUG
-#define DEBUG 1  // Set to 1 to enable debugging, 0 to disable
-#endif
-
-// Debugging macros for USART2_PRINTF_MOD lines
-#if DEBUG
-    #define DEBUG_PRINT(msg)         USART2_PRINTF_MOD(msg)
-    #define DEBUG_PRINT_INT(val)     USART2_PRINTF_MOD("%d", (val))
-    #define DEBUG_PRINT_DOUBLE(val)  USART2_PRINTF_MOD("%f", (val))
-    #define DEBUG_PRINT_STRING(str)  USART2_PRINTF_MOD("%s", (str))
-#else
-    #define DEBUG_PRINT(msg)
-    #define DEBUG_PRINT_INT(val)
-    #define DEBUG_PRINT_DOUBLE(val)
-    #define DEBUG_PRINT_STRING(str)
-#endif
+#define RED() PORTD.OUT |= PIN7_bm
+#define YELLOW() PORTD.OUT |= PIN5_bm
+#define GREEN() PORTA.OUT |= PIN7_bm
 
 // Global buffer and indices for GPS data handling
+extern volatile bool gps_data_ready;
 extern volatile uint8_t gpsData[MAX_PACKET_SIZE];  // Buffer to store GPS data
 extern volatile uint8_t _head;                      // Head pointer for writing data to gpsData
 extern volatile uint8_t _tail;                      // Tail pointer for reading data from gpsData
 extern char gps_buffer[MAX_PACKET_SIZE];            // Buffer to store the GPS sentence
 extern uint16_t buffer_index;                       // Current position in the buffer
+extern volatile uint8_t statesActive;
+
 
 
 /**
- * @brief Initializes the GPS module.
- * This function resets the GPS data buffer.
+ * @brief Initializes GPS and required peripherals (I2C, UART, RTC).
  */
-void GPS_begin(void);
+void GPS_init(void);
 
 /**
- * @brief Checks the GPS module for new data.
- * This function reads bytes from the GPS module via I2C and stores them in the gpsData buffer.
- */
-void GPS_check(void);
-
-/**
- * @brief Returns the number of bytes available in the GPS buffer.
- * This function checks the GPS module if new data is available.
+ * @brief Converts NMEA coordinates to decimal degrees.
  * 
- * @return uint8_t Number of available bytes.
- */
-uint8_t GPS_available(void);
-
-/**
- * @brief Reads the next byte from the GPS data buffer.
- * This function retrieves one byte at a time from the buffer.
- * 
- * @return uint8_t The next available byte of GPS data, or 0 if no data is available.
- */
-uint8_t GPS_read(void);
-
-/**
- * @brief Validates the checksum of a GPS NMEA sentence.
- * This function calculates the checksum and compares it with the provided checksum in the sentence.
- * 
- * @param sentence The GPS NMEA sentence to validate.
- * @return bool True if the checksum is valid, otherwise false.
- */
-bool validate_checksum(const char *sentence);
-
-/**
- * @brief Converts GPS NMEA coordinates to decimal degrees.
- * This function takes a GPS coordinate string and direction (N/S/E/W) and converts it into decimal degrees.
- * 
- * @param coord The GPS coordinate string (e.g., "12345.678").
- * @param direction The direction ('N', 'S', 'E', 'W').
- * @return double The converted coordinate in decimal degrees.
+ * @param coord NMEA coordinate string (e.g., "12345.678").
+ * @param direction Direction character ('N', 'S', 'E', or 'W').
+ * @return Coordinate in decimal degrees.
  */
 double convert_to_decimal(const char *coord, char direction);
 
 /**
- * @brief Converts GPS time to 24-hour format.
- * This function takes a GPS time string and formats it to a 24-hour clock format.
+ * @brief Converts a time string from NMEA format (hhmmss.sss) to 24-hour format.
  * 
- * @param time_str The GPS time string (e.g., "123045.678").
- * @return char* A string with the time in 24-hour format (e.g., "12:30:45.678").
+ * @param time_str NMEA time string.
+ * @return Time string in 24-hour format.
  */
 char* convert_to_24hr_format(const char *time_str);
 
 /**
- * @brief Checks if the GPS has arrived at the destination.
- * This function compares the current position to the destination and checks if they are within a threshold.
+ * @brief Checks if the user has reached the destination.
  * 
- * @param curr_lat The current latitude.
- * @param curr_lon The current longitude.
+ * @param curr_lat Current latitude in decimal degrees.
+ * @param curr_lon Current longitude in decimal degrees.
  */
 void check_arrival(double curr_lat, double curr_lon);
 
 /**
- * @brief Parses a GNGGA NMEA sentence.
- * This function extracts the time, latitude, and longitude from a GNGGA sentence and processes the data.
+ * @brief Parses a GPGGA sentence from the GPS data.
  * 
- * @param sentence The GNGGA NMEA sentence.
+ * @param sentence GPGGA sentence string.
  */
 void parse_gngga(const char *sentence);
 
 /**
- * @brief Main loop function to handle GPS data.
- * This function continuously checks for available GPS data, parses it, and processes it.
+ * @brief Parses incoming GPS data and processes sentences.
  */
-void loop(void);
+void parse_gps_data(void);
+
+
+/**
+ * @brief Converts an angle in degrees to radians.
+ *
+ * This function takes an angle in degrees and converts it to radians
+ * using the formula: radians = degrees * ? / 180.
+ *
+ * @param degrees The angle in degrees.
+ * @return The angle in radians.
+ */
+double degrees_to_radians(double degrees);
+
+/**
+ * @brief Calculates the great-circle distance between two GPS coordinates.
+ *
+ * This function computes the shortest distance between two points on the 
+ * Earth's surface using the Haversine formula. Coordinates are provided 
+ * as latitude and longitude in degrees.
+ *
+ * @param lat1 Latitude of the first point in degrees.
+ * @param lon1 Longitude of the first point in degrees.
+ * @param lat2 Latitude of the second point in degrees.
+ * @param lon2 Longitude of the second point in degrees.
+ * @return The distance in meters between the two points.
+ */
+double calc_distance(double lat1, double lon1, double lat2, double lon2);
+
 
 #endif	/* GPS_H */
 
